@@ -32,7 +32,6 @@ import Commission from "./pages/Commission";
 import CommissionHistory from "./pages/CommissionHistory";
 import Notifications from "./pages/Notifications";
 import Game from "./pages/Game";
-import BinaryTrading from "./pages/BinaryTrading";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
@@ -146,7 +145,6 @@ function App() {
                 <Route path="commission-history" element={<CommissionHistory />} />
                 <Route path="notifications" element={<Notifications />} />
                 <Route path="game" element={<Game />} />
-                <Route path="binary-trading" element={<BinaryTrading />} />
               </Route>
               
               {/* 404 route */}
