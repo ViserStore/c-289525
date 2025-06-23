@@ -7,7 +7,7 @@ import ActiveTrades from '@/components/BinaryTrading/ActiveTrades';
 import TradeHistory from '@/components/BinaryTrading/TradeHistory';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Coins } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { formatCurrency } from '@/lib/utils';
 
@@ -62,67 +62,35 @@ const BinaryTrading = () => {
   };
 
   return (
-    <AppLayout headerTitle="Binary Trading" className="bg-gray-50">
-      <div className="p-4 space-y-6">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <DollarSign className="w-5 h-5" />
-                <div>
-                  <p className="text-xs opacity-90">Balance</p>
-                  <p className="text-lg font-bold">{formatCurrency(user?.available_balance || 0)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className={`${totalProfit >= 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                {totalProfit >= 0 ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
-                <div>
-                  <p className="text-xs opacity-70">Total P&L</p>
-                  <p className="text-lg font-bold">{formatCurrency(totalProfit)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-blue-100 text-blue-800">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5" />
-                <div>
-                  <p className="text-xs opacity-70">Win Rate</p>
-                  <p className="text-lg font-bold">{winRate.toFixed(1)}%</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+    <AppLayout headerTitle="Binary Trading" className="bg-gray-950 min-h-screen">
+      <div className="p-4 space-y-4">
+        {/* Balance Header */}
+        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg p-4 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Coins className="w-6 h-6" />
+              <span className="text-lg font-semibold">{formatCurrency(user?.available_balance || 0)}</span>
+            </div>
+            <div className="text-right">
+              <div className="text-sm opacity-90">Win Rate</div>
+              <div className="text-lg font-bold">{winRate.toFixed(1)}%</div>
+            </div>
+          </div>
         </div>
 
         {/* Trading Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Live Chart</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TradingChart />
-          </CardContent>
-        </Card>
+        <TradingChart />
 
         {/* Trade Controls */}
         <TradeControls onNewTrade={handleNewTrade} userBalance={user?.available_balance || 0} />
 
         {/* Active Trades & History */}
         <Tabs defaultValue="active" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="active">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-800">
+            <TabsTrigger value="active" className="text-white data-[state=active]:bg-gray-700">
               Active Trades ({activeTrades.length})
             </TabsTrigger>
-            <TabsTrigger value="history">
+            <TabsTrigger value="history" className="text-white data-[state=active]:bg-gray-700">
               History ({tradeHistory.length})
             </TabsTrigger>
           </TabsList>
